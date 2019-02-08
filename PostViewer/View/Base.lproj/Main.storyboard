@@ -57,6 +57,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="30s-nX-cif"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="tableView" destination="j2L-ZH-kOk" id="HfR-y0-o32"/>
                         <segue destination="7Fi-Bj-1RJ" kind="show" identifier="contentArea" id="h5y-4N-XJB"/>
                     </connections>
                 </viewController>
@@ -67,7 +68,7 @@
         <!--Post-->
         <scene sceneID="zbO-iZ-4lk">
             <objects>
-                <viewController title="Post" id="7Fi-Bj-1RJ" customClass="ContentViewController" customModule="PostViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentViewController" title="Post" id="7Fi-Bj-1RJ" customClass="ContentViewController" customModule="PostViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NN5-3q-Nnb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -154,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3o-pe-UZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1680.8" y="792.95352323838085"/>
+            <point key="canvasLocation" x="1729" y="793"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Elb-WX-naQ">

@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="height" constant="30" id="yb7-MZ-ZvU"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo eleifend risus nec feugiat." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3f-P1-UaQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo eleifend risus nec feugiat." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3f-P1-UaQ">
                                 <rect key="frame" x="30" y="6.5" width="244" height="81.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -53,7 +53,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="41.600000000000001" y="16.641679160419791"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="e3f-P1-UaQ" id="X2L-7A-Hpl"/>
+                <outlet property="indicatorImage" destination="4AT-SX-wLG" id="uXm-Rk-AIw"/>
+                <outlet property="stateIndicatorImage" destination="L9z-8j-U3u" id="29B-Ou-ttU"/>
+            </connections>
+            <point key="canvasLocation" x="-45" y="42"/>
         </tableViewCell>
     </objects>
     <resources>

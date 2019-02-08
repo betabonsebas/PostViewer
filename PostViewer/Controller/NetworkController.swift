@@ -9,64 +9,103 @@
 import Foundation
 import Alamofire
 
-protocol NetworkProtocol {
-    associatedtype T
-    func getRelatedTo(id: Int, completion:@escaping(_ list: [T]) -> ())
-    func getAll(_ completion:(_ list: [T]) -> ())
-}
-
-class PostNetworkController: NetworkProtocol {
+class AlamofirePostDataController: DataProtocol {
     typealias T = Post
     
-    func getRelatedTo(id: Int, completion: @escaping(_ list: [Post]) -> ()) {
-        Alamofire.request("https://jsonplaceholder.typicode.com/posts/\(id)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Content-Type" : "application/json"]).responseData(completionHandler: { (response) in
-            switch (response.result) {
+    private let baseURL = "https://jsonplaceholder.typicode.com/posts/"
+    
+    func get(id: Int, completion: @escaping (Post?) -> ()) {
+        Alamofire.request("\(baseURL)\(id)").responseData { response in
+            switch response.result {
             case .success(let value):
-                guard let data = try? JSONDecoder().decode([Post].self, from: value) else {
-                    completion([])
+                guard let post = try? JSONDecoder().decode(Post.self, from: value) else {
+                    completion(nil)
                     return
                 }
-                completion(data)
-            case .failure(let _):
-                completion([])
+                completion(post)
+            case .failure(_):
+                completion(nil)
+                return
             }
-        })
-        completion([])
+        }
     }
     
-    func getAll(_ completion: (_ list: [Post]) -> ()) {
-        completion([])
+    func getAll(completion: @escaping ([Post]?) -> ()) {
+        Alamofire.request(baseURL).responseData { response in
+            switch response.result {
+            case .success(let value):
+                guard let post = try? JSONDecoder().decode([Post].self, from: value) else {
+                    completion(nil)
+                    return
+                }
+                completion(post)
+            case .failure(_):
+                completion(nil)
+                return
+            }
+        }
+    }
+    
+    func save(_ models: [Post], completion: @escaping (Bool) -> ()) {
+        
+    }
+    
+    func delete(id: Int, completion: @escaping (Bool) -> ()) {
+        
+    }
+    
+    func deleteAll() {
+        
     }
 }
 
-class CommentNetworkController: NetworkProtocol {
+class AlamofireCommentDataController: DataProtocol {
     typealias T = Comment
     
-    func getRelatedTo(id: Int, completion: (_ list: [Comment]) -> ()) {
-        Alamofire.request("https://jsonplaceholder.typicode.com/comments/\(id)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Content-Type" : "application/json"]).responseJSON(queue: nil, options: .allowFragments) { response in
-            
+    private let baseURL = "https://jsonplaceholder.typicode.com/comments/"
+    
+    func get(id: Int, completion: @escaping (Comment?) -> ()) {
+        Alamofire.request("\(baseURL)\(id)").responseData { response in
+            switch response.result {
+            case .success(let value):
+                guard let post = try? JSONDecoder().decode(Comment.self, from: value) else {
+                    completion(nil)
+                    return
+                }
+                completion(post)
+            case .failure(_):
+                completion(nil)
+                return
+            }
         }
-        completion([])
     }
     
-    func getAll(_ completion: (_ list: [Comment]) -> ()) {
-        completion([])
+    func getAll(completion: @escaping ([Comment]?) -> ()) {
+        Alamofire.request(baseURL).responseData { response in
+            switch response.result {
+            case .success(let value):
+                guard let post = try? JSONDecoder().decode([Comment].self, from: value) else {
+                    completion(nil)
+                    return
+                }
+                completion(post)
+            case .failure(_):
+                completion(nil)
+                return
+            }
+        }
+    }
+    
+    func save(_ models: [Comment], completion: @escaping (Bool) -> ()) {
+        
+    }
+    
+    func delete(id: Int, completion: @escaping (Bool) -> ()) {
+        
+    }
+    
+    func deleteAll() {
+        
     }
 }
-
-class UserNetworkController: NetworkProtocol {
-    typealias T = User
-    
-    func getRelatedTo(id: Int, completion: (_ list: [User]) -> ()) {
-        Alamofire.request("https://jsonplaceholder.typicode.com/users/\(id)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Content-Type" : "application/json"]).responseJSON(queue: nil, options: .allowFragments) { response in
-            
-        }
-        completion([])
-    }
-    
-    func getAll(_ completion: (_ list: [User]) -> ()) {
-        completion([])
-    }
-}
-
 

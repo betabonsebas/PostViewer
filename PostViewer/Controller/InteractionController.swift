@@ -7,34 +7,40 @@
 //
 
 import Foundation
+import UIKit
 
-enum UIInteractionType {
-    case refresh
-    case favorite(id: Int)
-    case delete(id: Int)
-    case deleteAll
-    case read(id: Int)
-}
-
-enum BackInteractionType {
+class AppInteractionController {
     
-}
-
-protocol InteractionControllerProtocol {
-    associatedtype T
-    func listenUIInteraction(_ interaction: UIInteractionType)
-    func receiveBackInteraction(completion: () -> [T])
-}
-
-class PostInteractionController: InteractionControllerProtocol {
-    typealias T = Post
+    public static var shared: AppInteractionController = AppInteractionController()
+//    private var viewControllers: [UIViewController] = []
+    private var PostNetworkController: AlamofirePostDataController = AlamofirePostDataController()
     
-    func listenUIInteraction(_ interaction: UIInteractionType) {
-        
+//    func addController(_ controller: UIViewController) {
+//        self.viewControllers.append(controller)
+//    }
+    
+    func getControllerData<T: UIData>(_ completion: @escaping(_ data: T) -> Void) {
+        switch T.self {
+        case is ControllerData.Type:
+            PostNetworkController.getAll { (posts) in
+                guard let posts = posts else {
+                    completion(T(list: []))
+                    return
+                }
+                
+                let uiPosts = posts.compactMap({ UIPost($0) })
+                completion(T(list: uiPosts))
+            }
+        default:
+            break
+        }
     }
     
-    func receiveBackInteraction(completion: () -> [Post]) {
-        
+    func goToPostDetail(from controller: UIViewController, with post: UIPost, completion: @escaping(_ controllerToPresent: UIViewController) -> Void) {
+        let viewControllerName = String(describing: ContentViewController.self)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        completion(storyboard.instantiateViewController(withIdentifier: viewControllerName))
     }
     
 }
+

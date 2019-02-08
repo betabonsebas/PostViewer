@@ -20,7 +20,8 @@
 		B7BBF32E2207E9D200D0628C /* InteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BBF32D2207E9D200D0628C /* InteractionController.swift */; };
 		B7BBF3302207EAA200D0628C /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BBF32F2207EAA200D0628C /* NetworkController.swift */; };
 		B7BBF3322207EAB500D0628C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BBF3312207EAB500D0628C /* PersistenceController.swift */; };
-		B7BBF3342207F29D00D0628C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BBF3332207F29D00D0628C /* Post.swift */; };
+		B7BBF3342207F29D00D0628C /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BBF3332207F29D00D0628C /* NetworkModel.swift */; };
+		B7FFFA37220D22D700399333 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FFFA36220D22D700399333 /* DataModel.swift */; };
 		E3EE5528DBDED43301343DC9 /* Pods_PostViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C718BFDD25C1F75D196CE648 /* Pods_PostViewer.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +56,8 @@
 		B7BBF32D2207E9D200D0628C /* InteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionController.swift; sourceTree = "<group>"; };
 		B7BBF32F2207EAA200D0628C /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		B7BBF3312207EAB500D0628C /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		B7BBF3332207F29D00D0628C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		B7BBF3332207F29D00D0628C /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		B7FFFA36220D22D700399333 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		C718BFDD25C1F75D196CE648 /* Pods_PostViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8FF5B5C4D9E37DCE5FC8065 /* Pods-PostViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-PostViewer/Pods-PostViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +157,8 @@
 		B7BBF31D2207E60F00D0628C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B7BBF3332207F29D00D0628C /* Post.swift */,
+				B7BBF3332207F29D00D0628C /* NetworkModel.swift */,
+				B7FFFA36220D22D700399333 /* DataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -354,11 +357,12 @@
 				B7BBF32C2207E99200D0628C /* ContentViewController.swift in Sources */,
 				B7BBF3322207EAB500D0628C /* PersistenceController.swift in Sources */,
 				B7BBF32A2207E97D00D0628C /* PostsViewController.swift in Sources */,
-				B7BBF3342207F29D00D0628C /* Post.swift in Sources */,
+				B7BBF3342207F29D00D0628C /* NetworkModel.swift in Sources */,
 				B7BBF3302207EAA200D0628C /* NetworkController.swift in Sources */,
 				B7BBF32E2207E9D200D0628C /* InteractionController.swift in Sources */,
 				B7BBF2FB2207D5D900D0628C /* AppDelegate.swift in Sources */,
 				B7BBF3232207E6B300D0628C /* PostTableViewCell.swift in Sources */,
+				B7FFFA37220D22D700399333 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
