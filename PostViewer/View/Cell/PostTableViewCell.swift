@@ -14,26 +14,22 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var indicatorImage: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
     func setupWith<T>(_ data: T) {
         if let model = data as? UIPost, let read = model.read, let favorite = model.favorite {
             descriptionLabel.text = model.description
+            stateIndicatorImage.image = nil
             if !read {
                 stateIndicatorImage.image = UIImage(named: "unread")
             }
             if favorite {
                 stateIndicatorImage.image = UIImage(named: "favoritePost")
             }
+        }
+
+        if let model = data as? Comment {
+            descriptionLabel.text = model.body
+            stateIndicatorImage.isHidden = true
+            indicatorImage.isHidden = true
         }
     }
     

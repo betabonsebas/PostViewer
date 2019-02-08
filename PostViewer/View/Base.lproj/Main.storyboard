@@ -25,6 +25,9 @@
                                     <segment title="Favorites"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="filterChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="v8V-mg-lz9"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j2L-ZH-kOk">
                                 <rect key="frame" x="0.0" y="44" width="375" height="529"/>
@@ -54,7 +57,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Posts" id="4IG-Yk-zI2">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="30s-nX-cif"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="30s-nX-cif">
+                            <connections>
+                                <action selector="refreshList:" destination="BYZ-38-t0r" id="N4f-Tn-hKt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="j2L-ZH-kOk" id="HfR-y0-o32"/>
@@ -103,25 +110,25 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQr-7i-Pvf">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQr-7i-Pvf">
                                                 <rect key="frame" x="0.0" y="28.5" width="343" height="20"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydo-lh-REK">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydo-lh-REK">
                                                 <rect key="frame" x="0.0" y="56.5" width="343" height="20"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veR-uF-QnZ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veR-uF-QnZ">
                                                 <rect key="frame" x="0.0" y="84.5" width="343" height="20"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjD-gs-9zr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjD-gs-9zr">
                                                 <rect key="frame" x="0.0" y="112.5" width="343" height="20"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -150,8 +157,23 @@
                         <viewLayoutGuide key="safeArea" id="GKY-PG-1eV"/>
                     </view>
                     <navigationItem key="navigationItem" title="Post" id="jrq-FP-PZM">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="favorite" id="I2c-0T-SkJ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="favorite" id="I2c-0T-SkJ">
+                            <connections>
+                                <action selector="favoritePost:" destination="7Fi-Bj-1RJ" id="3yj-Bw-JpC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="YCG-bp-MJn" id="pQb-DI-wwT"/>
+                        <outlet property="favoriteButton" destination="I2c-0T-SkJ" id="QPc-EG-yqe"/>
+                        <outlet property="postDescriptionLabel" destination="9zo-Zy-upN" id="TPZ-ot-gpl"/>
+                        <outlet property="tableView" destination="7Cm-vy-Tzi" id="cBP-ad-UXT"/>
+                        <outlet property="userEmailLabel" destination="Ydo-lh-REK" id="Lqf-IX-2sr"/>
+                        <outlet property="userLabel" destination="O9d-xT-xlF" id="hXJ-5t-Ybr"/>
+                        <outlet property="userNameLabel" destination="FQr-7i-Pvf" id="bx0-qk-i9k"/>
+                        <outlet property="userPhoneLabel" destination="veR-uF-QnZ" id="F82-4I-HaM"/>
+                        <outlet property="userWebsiteLabel" destination="CjD-gs-9zr" id="dtm-hc-8Ee"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3o-pe-UZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

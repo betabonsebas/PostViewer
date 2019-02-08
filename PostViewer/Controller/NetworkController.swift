@@ -9,9 +9,7 @@
 import Foundation
 import Alamofire
 
-class AlamofirePostDataController: DataProtocol {
-    typealias T = Post
-    
+class AlamofirePostDataController {
     private let baseURL = "https://jsonplaceholder.typicode.com/posts/"
     
     func get(id: Int, completion: @escaping (Post?) -> ()) {
@@ -45,67 +43,25 @@ class AlamofirePostDataController: DataProtocol {
             }
         }
     }
-    
-    func save(_ models: [Post], completion: @escaping (Bool) -> ()) {
-        
-    }
-    
-    func delete(id: Int, completion: @escaping (Bool) -> ()) {
-        
-    }
-    
-    func deleteAll() {
-        
-    }
 }
 
-class AlamofireCommentDataController: DataProtocol {
-    typealias T = Comment
+class AlamofireCommentDataController {
+    private let baseURL = "https://jsonplaceholder.typicode.com/comments"
     
-    private let baseURL = "https://jsonplaceholder.typicode.com/comments/"
-    
-    func get(id: Int, completion: @escaping (Comment?) -> ()) {
-        Alamofire.request("\(baseURL)\(id)").responseData { response in
+    func getRelated(to postId: Int, completion: @escaping (_ comments: [Comment]?) -> ()) {
+        Alamofire.request("\(baseURL)?postId=\(postId)").responseData { response in
             switch response.result {
             case .success(let value):
-                guard let post = try? JSONDecoder().decode(Comment.self, from: value) else {
+                guard let comments = try? JSONDecoder().decode([Comment].self, from: value) else {
                     completion(nil)
                     return
                 }
-                completion(post)
+                completion(comments)
             case .failure(_):
                 completion(nil)
                 return
             }
         }
-    }
-    
-    func getAll(completion: @escaping ([Comment]?) -> ()) {
-        Alamofire.request(baseURL).responseData { response in
-            switch response.result {
-            case .success(let value):
-                guard let post = try? JSONDecoder().decode([Comment].self, from: value) else {
-                    completion(nil)
-                    return
-                }
-                completion(post)
-            case .failure(_):
-                completion(nil)
-                return
-            }
-        }
-    }
-    
-    func save(_ models: [Comment], completion: @escaping (Bool) -> ()) {
-        
-    }
-    
-    func delete(id: Int, completion: @escaping (Bool) -> ()) {
-        
-    }
-    
-    func deleteAll() {
-        
     }
 }
 

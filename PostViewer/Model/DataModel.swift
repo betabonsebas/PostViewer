@@ -27,6 +27,7 @@ struct UIPost: Codable {
     var post: Post
     var read: Bool?
     var favorite: Bool?
+    var comments: [Comment]?
     
     var description: String {
         return post.body
@@ -36,5 +37,6 @@ struct UIPost: Codable {
         self.post = post
         self.read = false
         self.favorite = false
+        self.comments = nil
     }
 }

@@ -12,34 +12,69 @@ import UIKit
 class AppInteractionController {
     
     public static var shared: AppInteractionController = AppInteractionController()
-//    private var viewControllers: [UIViewController] = []
-    private var PostNetworkController: AlamofirePostDataController = AlamofirePostDataController()
-    
-//    func addController(_ controller: UIViewController) {
-//        self.viewControllers.append(controller)
-//    }
+    private var postNetworkController: AlamofirePostDataController = AlamofirePostDataController()
+    private var commentNetworkController: AlamofireCommentDataController = AlamofireCommentDataController()
+    private var persistenceController: PListDataController = PListDataController()
     
     func getControllerData<T: UIData>(_ completion: @escaping(_ data: T) -> Void) {
         switch T.self {
         case is ControllerData.Type:
-            PostNetworkController.getAll { (posts) in
-                guard let posts = posts else {
-                    completion(T(list: []))
+            persistenceController.getAll { [weak self] posts in
+                guard let uiPosts = posts else {
+                    self?.getNetworkData(completion)
                     return
                 }
-                
-                let uiPosts = posts.compactMap({ UIPost($0) })
                 completion(T(list: uiPosts))
             }
         default:
             break
         }
     }
+
+    func getRefreshedControllerData<T: UIData>(_ completion: @escaping(_ data: T) -> Void) {
+        getNetworkData(completion)
+    }
+
+    private func getNetworkData<T: UIData>(_ completion: @escaping(_ data: T) -> Void) {
+        postNetworkController.getAll { (posts) in
+            guard let posts = posts else {
+                completion(T(list: []))
+                return
+            }
+
+            let uiPosts = posts.compactMap({ (post) -> UIPost? in
+                var uiPost = UIPost(post)
+                uiPost.read = post.id > 20
+                return uiPost
+            })
+            self.savePosts(uiPosts)
+            completion(T(list: uiPosts))
+        }
+    }
+
+    private func savePosts(_ posts: [UIPost]) {
+        persistenceController.save(posts) { (success) in
+            print("data saved successfully? ->\(success)")
+        }
+    }
     
-    func goToPostDetail(from controller: UIViewController, with post: UIPost, completion: @escaping(_ controllerToPresent: UIViewController) -> Void) {
-        let viewControllerName = String(describing: ContentViewController.self)
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        completion(storyboard.instantiateViewController(withIdentifier: viewControllerName))
+    func contentData(with post: UIPost, completion: @escaping(_ dataToShow: UIPost) -> Void) {
+        guard post.comments != nil else {
+            commentNetworkController.getRelated(to: post.post.id) { comments in
+                var postToShow = post
+                postToShow.comments = comments
+                self.updatePost(postToShow, completion: { success in
+                    print("model updata successfully: \(success)")
+                })
+                completion(postToShow)
+            }
+            return
+        }
+        completion(post)
+    }
+
+    func updatePost(_ post: UIPost, completion: @escaping (Bool) -> ()) {
+        persistenceController.update(post, completion: completion)
     }
     
 }

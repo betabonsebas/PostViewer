@@ -18,6 +18,10 @@ class PostsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         interactor.getControllerData({ [weak self] (data: ControllerData) in
             self?.data = data
             self?.tableView.reloadData()
@@ -29,6 +33,36 @@ class PostsViewController: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
+
+    func configureAndShowContentViewController(with post: UIPost) {
+        let viewControllerName = String(describing: ContentViewController.self)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerName) as? ContentViewController else {
+            return
+        }
+        viewController.post = post
+        self.show(viewController, sender: nil)
+    }
+
+    @IBAction func refreshList(_ sender: UIBarButtonItem) {
+        interactor.getRefreshedControllerData({ [weak self] (data: ControllerData) in
+            self?.data = data
+            self?.tableView.reloadData()
+        })
+    }
+
+    @IBAction func filterChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 1:
+            break
+        default:
+            interactor.getControllerData({ [weak self] (data: ControllerData) in
+                self?.data = data
+                self?.tableView.reloadData()
+            })
+        }
+    }
+
 }
 
 extension PostsViewController: UITableViewDataSource {
@@ -48,8 +82,8 @@ extension PostsViewController: UITableViewDataSource {
 
 extension PostsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        interactor.goToPostDetail(from: self, with: data.list[indexPath.row] as! UIPost) { [weak self] (viewController) in
-            self?.show(viewController, sender: nil)
+        interactor.contentData(with: data.list[indexPath.row] as! UIPost) { [weak self] post in
+            self?.configureAndShowContentViewController(with: post)
         }
     }
 }
